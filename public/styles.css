@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+}
+.container {
+    /* display: grid;
+    grid-template-columns: 100%; */
+}
+
+.board {
+    display: grid;
+    padding: 50px;
+    grid-template-columns: 40px 40px 40px 40px;
+    grid-template-rows: 40px 40px 40px 40px;
+    
+}
+
+.board-border {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.cell {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.boom {
+    border-style: solid;
+    border-width: 1px;
+    background-color: red;
+}
+
+.safe {
+    border-style: solid;
+    border-width: 1px;
+    background-color: green;   
+}
+
+.flag {
+    border-style: solid;
+    border-width: 1px;
+    background-color: yellow;
+}
