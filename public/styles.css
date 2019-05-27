@@ -7,8 +7,10 @@
 }
 
 .board-border {
-    border-style: solid;
+    display: inline-block;
+    border-style: inset;
     border-width: 1px;
+    background-color: beige;
 }
 
 .board {
@@ -32,24 +34,25 @@
 }
 
 .cell {
-    border-style: solid;
-    border-width: 1px;
+    border-style: outset;
+    border-width: 2px;
+    background-color: grey;
 }
 
 .boom {
-    border-style: solid;
-    border-width: 1px;
+    border-style: inset;
+    border-width: 2px;
     background-color: red;
 }
 
 .safe {
-    border-style: solid;
-    border-width: 1px;
+    border-style: inset;
+    border-width: 2px;
     background-color: green;   
 }
 
 .flag {
-    border-style: solid;
-    border-width: 1px;
+    border-style: inset;
+    border-width: 2px;
     background-color: yellow;
 }
