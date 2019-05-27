@@ -7,6 +7,13 @@
         <link rel="stylesheet" href="public/styles.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script type="text/javascript" src="public/javascript.js"></script>
+        <script>
+            function changeDifficulty() {
+                var select = document.getElementById('difficultySelector');   
+                var difficulty = select.options[select.selectedIndex].value;
+                getBoard(difficulty);
+            }
+        </script>
     </head>
     <body onload="getBoard()">
         <header>
@@ -23,7 +30,13 @@
                     </div>
                 </div>
                 <div class="reset">
-                    <input type="button" value="Reset">
+                    <select id="difficultySelector">
+                        <option value="0">Easy</option>
+                        <option value="1">Moderate</option>
+                        <option value="2">Hard</option>
+                    </select>
+                    <!-- <input type="button" value="Reset" onclick="javascript:location.reload(true)"> -->
+                    <input type="button" value="Reset" onclick="javascript:changeDifficulty()">
                 </div>
             </div>
 
