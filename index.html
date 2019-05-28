@@ -8,14 +8,31 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script type="text/javascript" src="public/javascript.js"></script>
         <script>
-            function changeDifficulty() {
+            function getDifficulty() {
                 var select = document.getElementById('difficultySelector');   
                 var difficulty = select.options[select.selectedIndex].value;
-                getBoard(difficulty);
+                return difficulty;
             }
+
+            function changeDifficulty() {
+                buildBoard(getDifficulty());
+            }
+
+            function sweep(id) {             
+                if (cellDictionary[id].isMine) {
+                    var element = document.getElementById(id);
+                    element.className = 'boom'; 
+                    // TODO: Modal to end the game.
+                } else {
+                    recursiveCellChecker(id, getDifficulty());
+                    /* var element = document.getElementById(id);
+                    element.className = 'safe'; */
+                }   
+            };
         </script>
     </head>
-    <body onload="getBoard()">
+    <!-- <body onload="getBoard()"> -->
+    <body onload="buildBoard()">
         <header>
                 <div class="title">
                     <h1>Minesweeper</h1>
