@@ -38,19 +38,25 @@
 .cell {
     border-style: outset;
     border-width: 2px;
-    background-color: grey;
+    background-color: #DCDCDC;
 }
 
 .boom {
     border-style: inset;
     border-width: 2px;
-    background-color: red;
+    background-color: #FF0000;
 }
 
 .safe {
     border-style: inset;
     border-width: 2px;
-    background-color: green;   
+    background-color: 	#90EE90;   
+}
+
+.clear {
+    border-style: inset;
+    border-width: 2px;
+    background-color: beige;
 }
 
 .flag {

@@ -24,11 +24,13 @@
                     element.className = 'boom'; 
                     // TODO: Modal to end the game.
                 } else {
-                    recursiveCellChecker(id, getDifficulty());
+                    cellChecker(id);
                     /* var element = document.getElementById(id);
                     element.className = 'safe'; */
                 }   
             };
+
+
         </script>
     </head>
     <!-- <body onload="getBoard()"> -->
@@ -56,7 +58,9 @@
                     <input type="button" value="Reset" onclick="javascript:changeDifficulty()">
                 </div>
             </div>
+            <div id="log">
 
+            </div>
         </main>
         
     </body>
