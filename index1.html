@@ -6,13 +6,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="public/styles.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="public/javascript.js"></script>
         <script type="text/javascript" src="public/javascript1.js"></script>
         <script>
-            
+            function getDifficulty() {
+                var select = document.getElementById('difficultySelector');   
+                var difficulty = select.options[select.selectedIndex].value;
+                return difficulty;
+            }
+
+            function changeDifficulty() {
+                buildBoard(getDifficulty());
+            }
+
+            function sweepTable(id) {             
+                if (cellDictionary[id].isMine) {
+                    var element = document.getElementById(id);
+                    element.className = 'boom'; 
+                } else {
+                    cellCheckerTable(id);
+                }   
+            };
+
         </script>
     </head>
-    <!-- <body onload="getBoard()"> -->
-    <body onload="buildBoard()">
+    <body onload="buildBoardTable()">
         <header>
                 <div class="title">
                     <h1>Minesweeper</h1>
@@ -21,21 +39,17 @@
         
         <main>
             <div class="container main">
-                
                 <div class="board-border">
-                    <div class="board" id="board"></div>
+                    <table id="board-table"></table>
                 </div>
-
                 <div class="reset">
                     <select id="difficultySelector">
                         <option value="0">Easy</option>
                         <option value="1">Moderate</option>
                         <option value="2">Hard</option>
                     </select>
-                    <!-- <input type="button" value="Reset" onclick="javascript:changeDifficulty()"> -->
-                    <input type="button" value="Does nothing until I give it something to do.">
+                    <input type="button" value="Reset" onclick="javascript:changeDifficulty()">
                 </div>
-
             </div>
             <div id="log">
 

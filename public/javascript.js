@@ -37,6 +37,7 @@ function clear(id) {
     var element = document.getElementById(id);
     element.className = 'clear';
     element.innerHTML = "";
+    addLog('clear: ' + id);
 }
 
 function safe(id) {
@@ -45,26 +46,15 @@ function safe(id) {
     element.innerHTML = cellDictionary[id].count;
 }
 
-/* function getNeighbors(id) {
-    // Function to get neighbor cell array and store it in object's neighbors property
-    // checks for boundaries of surrounding grid using object's difficulty property and cellIndex
-    // this way we'll have define the borders of the cell checker in the object itself
-    var cell = cellDictionary[id];
-} */
-
 // called on left click. This function sets the innerHTML to display the counter property of the cell.
 // if counter = 0, display an empty cell and get the counter properties of neighboring cells
 function cellChecker(id) {
-    var element = document.getElementById(id);
     if ( cellDictionary[id].count == 0 ) {
         clear(id);
         whereTheMinesAt(id);
-
     } else {
-        // not zero. change class to safe and display counter in innerHTML
         safe(id);
     }
-
 }
 
 // Add mines randomly to the board.
@@ -81,20 +71,39 @@ function seedMines(Board) {
     while (mineCounter <= Board.mines );
 }
 
-//
+function getRandomNumber(x, y) {
+    var random = Math.floor(Math.random() * (x * y));
+    return random;
+}
+
+// getZeroes(id):
+// simple function to check count property.
+// use to troubleshoot recursive cell check
+function getZeroes(id) {
+    if ( cellDictionary[id].count == 0 ) {
+        addLog('getZeroes: ' + id + ' is a zero');
+        clear(id);
+    } else {
+        safe(id);
+    }
+}
+
+// whereTheMinesAt(id):
+// Called when a not-mine cell with count == 0 is clicked.
 function whereTheMinesAt(id) {
-    var cell = cellDictionary[id];
-    addLog(cell.neighbors);
-    for ( var n of cell.neighbors )
+     for ( var n of cellDictionary[id].neighbors )
     {
-        addLog(cellDictionary[n].count);
         if (cellDictionary[n].count == 0) {
             clear(n);
+            for ( var x of cellDictionary[n].neighbors ) {
+                getZeroes(x);
+                //cellChecker(x);
+            }
         } else {
             safe(n);
         }
     }
-}
+ }
 
 // get surrounding mine count and store that as a property of the cell object
 function getSurroundingMines(id, difficulty) {
@@ -128,14 +137,12 @@ function getSurroundingMines(id, difficulty) {
 }
 
 
-
 function buildBoard(difficulty) {
     resetLog();
     // reload empty board container div each time page refreshes (is there a better way to do this...???)
     const board = document.getElementById("board");
     board.innerHTML = "";
     board.className = "board";
-    addLog('Generating new board...');
 
     // set board class based on selected difficulty
     if (!difficulty || difficulty == 0) {
@@ -174,6 +181,7 @@ function buildBoard(difficulty) {
             let neighborCell = Number(i) + Number(cells);
             neighborCells.push(neighborCell);
         }
+
         let newCell = {
             id: newNode.id,
             difficulty: difficulty,
