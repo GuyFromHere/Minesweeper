@@ -89,6 +89,7 @@ function clickCell(cell) {
         }
       }
     }
+
     checkLevelCompletion();
   }
 }

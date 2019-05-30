@@ -9,25 +9,12 @@
         <script type="text/javascript" src="public/javascript.js"></script>
         <script type="text/javascript" src="public/javascript1.js"></script>
         <script>
+
             function getDifficulty() {
-                var select = document.getElementById('difficultySelector');   
-                var difficulty = select.options[select.selectedIndex].value;
+                var diff = document.getElementById('difficulty-selector');   
+                var difficulty = diff.options[diff.selectedIndex].value;
                 return difficulty;
             }
-
-            function changeDifficulty() {
-                buildBoard(getDifficulty());
-            }
-
-            function sweep(id) {             
-                if (cellDictionary[id].isMine) {
-                    var element = document.getElementById(id);
-                    element.className = 'boom'; 
-                } else {
-                    cellChecker(id);
-                }   
-            };
-
 
         </script>
     </head>
@@ -44,13 +31,12 @@
                     <div class="board" id="board"></div>
                 </div>
                 <div class="reset">
-                    <select id="difficultySelector">
-                        <option value="0">Easy</option>
+                    <select id="difficulty-selector">
+                        <option value="0" selected>Easy</option>
                         <option value="1">Moderate</option>
                         <option value="2">Hard</option>
                     </select>
-                    <!-- <input type="button" value="Reset" onclick="javascript:location.reload(true)"> -->
-                    <input type="button" value="Reset" onclick="javascript:changeDifficulty()">
+                    <input type="button" value="Reset" onclick="javascript:buildBoard()">
                 </div>
             </div>
             <div id="log">
