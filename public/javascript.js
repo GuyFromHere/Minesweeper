@@ -17,27 +17,34 @@ const debug = false;
 var Game = new Object();
 
 function resetLog() {
-    var logDiv = document.getElementById("log");
+    const logDiv = document.getElementById("log");
     logDiv.innerHTML = "";
 }
 
 function addLog(text) {
-    var logDiv = document.getElementById("log");
+    const logDiv = document.getElementById("log");
     logDiv.innerHTML += ('<p>' + text + '</p>');
 }
 
 function flag(id) {
-    if (document.getElementById(id).className == 'flag') {
-        document.getElementById(id).className = 'cell';
-        document.getElementById(id).innerHTML = '?';
-    } else {
-        document.getElementById(id).className = 'flag';
+    const cell = document.getElementById(id);
+    if ( cell.className == 'flag' ) {
+        if (cell.innerHTML == '') {
+            cell.innerHTML = '?';
+        } else {
+            cell.className = 'cell';
+            cell.innerHTML = '';
+        }
+    } else if ( cell.className == 'cell' ) {
+        cell.className = 'flagpng'
+        //cell.innerHTML = '';
+        cell.innerHTML = '<img src="public/img/flag.png" class="flagpng">'
     }
 }
 
 function safe(id) {
-    var element = document.getElementById(id);
-    element.className = 'safe'; 
+    const element = document.getElementById(id);
+    element.className = 'clear'; 
     element.innerHTML = cellDictionary[id].count;
 }
 
@@ -52,7 +59,7 @@ function sweep(id, difficulty) {
 }
 
 function clear(id) {
-    var element = document.getElementById(id);
+    const element = document.getElementById(id);
     element.className = 'clear';
 }
 
@@ -79,23 +86,26 @@ function seedMines(difficulty) {
 }
 
 function checkSurroundingCells(id, difficulty) {
-    for (var x = Math.max(cellDictionary[id].posX-1,0);x<=Math.min(cellDictionary[id].posX+1,(cellIndex[difficulty]-1));x++) {
-        for (var y = Math.max(cellDictionary[id].posY-1,0);y<=Math.min(cellDictionary[id].posY+1,(cellIndex[difficulty]-1));y++) {
-            if ( cellDictionary[x + ' ' + y].isMine) {
-                cellDictionary[id].count++;
+    const cell = document.getElementById(id);
+    if ( cell.innerHTML == "" || cell.innerHTML == "?" ) {
+        for (var x = Math.max(cellDictionary[id].posX-1,0);x<=Math.min(cellDictionary[id].posX+1,(cellIndex[difficulty]-1));x++) {
+            for (var y = Math.max(cellDictionary[id].posY-1,0);y<=Math.min(cellDictionary[id].posY+1,(cellIndex[difficulty]-1));y++) {
+                if ( cellDictionary[x + ' ' + y].isMine) {
+                    cellDictionary[id].count++;
+                }
             }
         }
-    }
-    if (cellDictionary[id].count > 0) {
-        safe(id);
-    } else {
-        clear(id);
-        for (var x = Math.max(cellDictionary[id].posX-1,0);x <=Math.min(cellDictionary[id].posX+1,(cellIndex[difficulty]-1));x++) {
-            for (var y = Math.max(cellDictionary[id].posY-1,0);y <= Math.min(cellDictionary[id].posY+1,(cellIndex[difficulty]-1));y++) {
-                if (document.getElementById(x + ' ' + y).className == 'cell') {
-                    checkSurroundingCells(x + ' ' + y, difficulty);
-                }  
-            } 
+        if (cellDictionary[id].count > 0) {
+            safe(id);
+        } else {
+            clear(id);
+            for (var x = Math.max(cellDictionary[id].posX-1,0);x <=Math.min(cellDictionary[id].posX+1,(cellIndex[difficulty]-1));x++) {
+                for (var y = Math.max(cellDictionary[id].posY-1,0);y <= Math.min(cellDictionary[id].posY+1,(cellIndex[difficulty]-1));y++) {
+                    if (document.getElementById(x + ' ' + y).className == 'cell') {
+                        checkSurroundingCells(x + ' ' + y, difficulty);
+                    }  
+                } 
+            }
         }
     }
 }
